@@ -1,49 +1,44 @@
-# 3 SUM
+# ARRANGING COINS
 
-Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
+You have a total of n coins that you want to form in a staircase shape, where every k-th row must have exactly k coins.
 
-### Note:
+Given n, find the total number of full staircase rows that can be formed.
 
-The solution set must not contain duplicate triplets.
+n is a non-negative integer and fits within the range of a 32-bit signed integer.
 
-### Example:
+
+### Example 1:
 <pre>
-Given array nums = [-1, 0, 1, 2, -1, -4],
+n = 5
 
-A solution set is:
-[
-  [-1, 0, 1],
-  [-1, -1, 2]
-]
+The coins can form the following rows:
+¤
+¤ ¤
+¤ ¤
+
+Because the 3rd row is incomplete, we return 2.
+</pre>
+### Example 2:
+<pre>
+n = 8
+
+The coins can form the following rows:
+¤
+¤ ¤
+¤ ¤ ¤
+¤ ¤
+
+Because the 4th row is incomplete, we return 3.
 </pre>
 
 ### Solution:
 
 ```cpp
 
-
 class Solution {
 public:
-    vector<vector<int>> threeSum(vector<int>& nums) {
-        sort(nums.begin(),nums.end());
-        int n = nums.size();
-        vector<vector<int>> ans;
-        for(int i=0;i<n-2;i++){
-               if(i>0 && (nums[i]==nums[i-1]) )continue;
-               int l=i+1, r= n-1;
-               while(l<r){
-                   int sum =nums[i]+nums[l]+nums[r];
-                   if(sum<0) l++;
-                   else if(sum>0)r--;
-                   else {
-                       ans.push_back(vector<int>{nums[i],nums[l],nums[r]});
-                       while(l+1<r && nums[l]==nums[l+1])l++;
-                       while(l<r-1 && nums[r]==nums[r-1]) r--;
-                       l++; r--;
-                   }
-               }
-        }
-        return ans;
+    int arrangeCoins(int n) {
+        return (sqrt(1+8*long(n))-1)/2;
     }
 };
 
